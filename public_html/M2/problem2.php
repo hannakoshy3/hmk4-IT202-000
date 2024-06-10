@@ -10,7 +10,9 @@ function getTotal($arr) {
     //note: use the $arr variable, don't directly touch $a1-$a4
     //TODO do adding here
     //TODO do rounding stuff here (round to two decimals i.e., 0.10, 0.01, 0.00)
-    
+    //mt85 6-10-24
+    echo "summed values...";
+    echo "rounded values...";
     //end edits
     echo "The total is $total";
 }
