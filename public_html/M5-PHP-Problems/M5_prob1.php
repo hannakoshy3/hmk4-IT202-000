@@ -27,13 +27,18 @@ function processBirds($birds) {
     // TODO add logic here to create a new array with only name, color, and region
     $subset = []; // result array
     // Start edits
-    
+    foreach ($birds as $a){
+        unset($a["size"]);
+        unset($a["id"]);
+        array_push($subset, $a);
+        
+    }
     // End edits
     echo "<pre>" . var_export($subset, true) . "</pre>";
     
 }
 
-echo "Problem 1: It's a bird....It's a plane...<br>";
+echo "Problem 1: It's a bird....It's a plane...Hannas<br>";
 ?>
 <table>
     <thead>
