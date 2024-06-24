@@ -49,6 +49,16 @@ function joinArrays($users, $activities) {
     // TODO add logic here to join the arrays on userId
     $joined = []; // result array
     // Start edits
+
+    foreach($users as $user){
+        foreach($activities as $activity){
+            if ($user["userId"] == $activity["userId"]){
+                $combine = array_merge($user, $activity);
+                array_push($joined, $combine);
+            }
+        }
+
+    }
     
 
     // End edits
