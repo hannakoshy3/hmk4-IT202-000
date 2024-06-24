@@ -1,4 +1,6 @@
 <?php
+//hmk4
+//6/23/24
 $a1 = [
     ["id" => 1, "name" => "Sparrow", "size" => "small", "color" => "brown", "region" => "North America"],
     ["id" => 2, "name" => "Robin", "size" => "small", "color" => "red", "region" => "Europe"]
@@ -27,6 +29,8 @@ function processBirds($birds) {
     // TODO add logic here to create a new array with only name, color, and region
     $subset = []; // result array
     // Start edits
+    //hmk4
+    //6/23/24
     foreach ($birds as $a){
         unset($a["size"]);
         unset($a["id"]);

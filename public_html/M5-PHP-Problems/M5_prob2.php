@@ -1,4 +1,6 @@
 <?php
+//hmk4
+//6/23/24
 $a1 = [
     ["id" => 1, "make" => "Toyota", "model" => "Camry", "year" => 2010],
     ["id" => 2, "make" => "Honda", "model" => "Civic", "year" => 2005]
@@ -29,6 +31,8 @@ function processCars($cars) {
     $processedCars = []; // result array
     $classic_age = 25; // don't change this value
     // Start edits
+    //hmk4
+    //6/23/24
     $currentYear = date("Y");
     foreach ($cars as $a){
         $age = $currentYear - $a["year"];

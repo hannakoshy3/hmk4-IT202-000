@@ -1,4 +1,6 @@
 <?php
+//hmk4
+//6/23/24
 // Array set A (user information)
 $a1_users = [
     ["userId" => 1, "name" => "Alice", "age" => 28],
@@ -49,6 +51,8 @@ function joinArrays($users, $activities) {
     // TODO add logic here to join the arrays on userId
     $joined = []; // result array
     // Start edits
+    //hmk4
+    //6/23/24
 
     foreach($users as $user){
         foreach($activities as $activity){
