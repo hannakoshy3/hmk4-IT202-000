@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ ."/../../lib/functions.php");
+require_once(__DIR__ . "/../../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
@@ -43,12 +43,12 @@ require_once(__DIR__ ."/../../lib/functions.php");
         echo "Invalid email address";
         $hasError = true;
     }
-    if (empty($password)){
-        echo "password must not be empty <br>";
+    if (empty($password)) {
+        echo "Password must not be empty";
         $hasError = true;
     }
-    if (empty($confirm)){
-        echo "confirm password must not be empty <br>";
+    if (empty($confirm)) {
+        echo "Confirm Password must not be empty";
         $hasError = true;
     }
     if (strlen($password) < 8){
@@ -67,12 +67,11 @@ require_once(__DIR__ ."/../../lib/functions.php");
         try{
             $r = $stmt->execute([":email"=>$email, ":password"=>$hash]);
             echo "Successfully registered!";
-        }
-        catch(Exception $e){
+        } catch(Exception $e){
             echo "there was an issue registering<br>";
             echo "<pre>" . var_export($e, true) . "</pre>";
         }
 
     }   
- }
+}
 ?>
