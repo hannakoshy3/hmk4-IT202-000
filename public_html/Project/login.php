@@ -33,19 +33,10 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         $hasError = true;
     }
     //sanitize
-    //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = sanitize_email($email);
     //validate
-    /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Please enter a valid email <br>";
-        $hasError = true;
-    }
-    if (empty($password)) {
-        echo "Password must be provided <br>";
-        $hasError = true;
-    }*/
     if (!is_valid_email($email)) {
-        echo "Please enter a valid email <br>";
+        echo "Invalid email address";
         $hasError = true;
     }
     if (empty($password)) {
@@ -57,7 +48,6 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         $hasError = true;
     }
     if (!$hasError) {
-        echo "Welcome, $email";
         //TODO 4
         $db = getDB();
         $stmt = $db->prepare("SELECT email, password from Users where email = :email");
@@ -69,7 +59,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     $hash = $user["password"];
                     unset($user["password"]);
                     if (password_verify($password, $hash)) {
-                        echo "Welcome $email";
+                        echo "Weclome $email";
                         $_SESSION["user"] = $user;
                         die(header("Location: home.php"));
                     } else {
