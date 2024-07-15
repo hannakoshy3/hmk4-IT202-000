@@ -1,4 +1,3 @@
-
 <?php
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
@@ -80,7 +79,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         try {
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
             flash("Successfully registered!", "success");
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             users_check_duplicate($e->errorInfo);
         }
     }
