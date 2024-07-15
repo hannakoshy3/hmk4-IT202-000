@@ -25,7 +25,7 @@ if (isset($_POST["save"])) {
         try {
             $stmt->execute($params);
             flash("Profile saved", "success");
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             users_check_duplicate($e->errorInfo);
         }
         //select fresh data from table
