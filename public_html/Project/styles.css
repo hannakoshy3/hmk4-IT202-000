@@ -1,23 +1,34 @@
 .alert-success {
-    background-color: green
+    background-color: rgb(82, 155, 82)
 }
 
 .alert-warning {
-    background-color: yellow;
+    background-color: rgb(230, 230, 105);
 }
 
 .alert-danger {
-    background-color: red;
+    background-color: rgb(244, 76, 76);
+}.alert-success {
+    background-color: rgb(82, 155, 82)
+}
+
+.alert-warning {
+    background-color: rgb(230, 230, 105);
+}
+
+.alert-danger {
+    background-color: rgb(244, 76, 76);
 }
 
 .alert-info {
-    background-color: teal;
+    background-color: rgb(61, 146, 146);
 }
 nav li{display: inline; background-color: rebeccapurple;}
-nav li a{color: hotpink}
-input{border-radius: 50%;}
+nav li a{color: rgb(173, 124, 149)}
+input{border-radius: 10%;}
 body{
-    background-color: hotpink;
-    color: rgb(153, 0, 153);
+    background-color: rgb(180, 162, 171);
+    color: rgb(98, 96, 163);
+    
 
 }
