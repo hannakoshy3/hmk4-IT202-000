@@ -125,6 +125,10 @@ $username = get_username();
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
+        if (pw.length < 8) {
+            flash("[client] password must be at least 8 characters long");
+            return false;
+        }
 
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild
