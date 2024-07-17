@@ -3,6 +3,7 @@ require(__DIR__ . "/../../partials/nav.php");
 ?>
 <h1>Login</h1>
 <form onsubmit="return validate(this)" method="POST">
+    <!--hmk4-->
     <div>
         <label for="email">Email/Username</label>
         <input type="text" name="email" required />
@@ -73,7 +74,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     }
     if (!$hasError) {
         //flash("Welcome, $email");
-        //TODO 4
+        //TODO 4  hmk4
         $db = getDB();
         $stmt = $db->prepare("SELECT id, email, username, password from Users 
         where email = :email or username = :email");
