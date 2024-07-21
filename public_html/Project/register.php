@@ -2,6 +2,7 @@
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 ?>
+<!--hmk4-->
 <h1>Register</h1>
 <form onsubmit="return validate(this)" method="POST">
     <div>
