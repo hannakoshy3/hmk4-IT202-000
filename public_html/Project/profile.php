@@ -93,6 +93,7 @@ if (isset($_POST["save"])) {
 $email = get_user_email();
 $username = get_username();
 ?>
+<!--hmk4-->
 <form method="POST" onsubmit="return validate(this);">
     <div class="mb-3">
         <label for="email">Email</label>
@@ -125,6 +126,10 @@ $username = get_username();
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
+        if (pw.length < 8) {
+            flash("[client] password must be at least 8 characters long");
+            return false;
+        }
 
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild
@@ -135,6 +140,7 @@ $username = get_username();
         return isValid;
     }
 </script>
+
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

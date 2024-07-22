@@ -2,7 +2,6 @@
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 ?>
-<!--hmk4-->
 <h1>Register</h1>
 <form onsubmit="return validate(this)" method="POST">
     <div>
@@ -27,33 +26,6 @@ reset_session();
     function validate(form) {
         //TODO 1: implement JavaScript validation
         //ensure it returns false for an error and true for success
-        //hmk4
-        let email = form.email.value;
-        let username = form.username.value;
-        let password = form.password.value;
-        let confirm = form.confirm.value;
-
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            flash(" [client] Please enter a valid email address");
-            return false;
-        }
-
-        const usernamePattern = /^[a-zA-Z0-9_-]{3,15}$/;
-        if (!usernamePattern.test(username)) {
-            flash("[client] Username must only contain 3-15 characters a-z, 0-9, _, or -");
-            return false;
-        }
-
-        if (password.length < 8) {
-            flash("[client] Password must be at least 8 characters long");
-            return false;
-        }
-
-        if (password !== confirm) {
-            flash("[client] Passwords must match");
-            return false;
-        }
 
         return true;
     }
