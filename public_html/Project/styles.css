@@ -1,18 +1,4 @@
-.alert-success {
-    background-color: rgb(82, 155, 82)
-}
 
-.alert-warning {
-    background-color: rgb(230, 230, 105);
-}
-
-.alert-danger {
-    background-color: rgb(244, 76, 76);
-}
-
-.alert-info {
-    background-color: rgb(61, 146, 146);
-}
 
 nav li {
     display: inline;
@@ -30,4 +16,8 @@ input {
 body {
     background-color: rgb(180, 162, 171);
     color: rgb(98, 96, 163);
+}
+
+.nav-link {
+    color: azure !important;
 }
