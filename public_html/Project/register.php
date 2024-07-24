@@ -3,13 +3,13 @@ require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 ?>
 <div class="container-fluid">
-<form onsubmit="return validate(this)" method="POST">
-    <?php render_input(["type"=>"email", "id"=>"email", "name"=>"email", "label"=>"Email", "rules"=>["required"=>true]]);?>
-    <?php render_input(["type"=>"text", "id"=>"username", "name"=>"username", "label"=>"Username", "rules"=>["required"=>true, "maxlength"=>30]]);?>
-    <?php render_input(["type"=>"password", "id"=>"password", "name"=>"password", "label"=>"Password", "rules"=>["required"=>true, "minlength"=>8]]);?>
-    <?php render_input(["type"=>"password", "id"=>"confirm", "name"=>"confirm", "label"=>"Confirm Password", "rules"=>["required"=>true,"minlength"=>8]]);?>
-    <?php render_button(["text"=>"Register", "type"=>"submit"]);?>
-</form>
+    <form onsubmit="return validate(this)" method="POST">
+        <?php render_input(["type" => "email", "id" => "email", "name" => "email", "label" => "Email", "rules" => ["required" => true]]); ?>
+        <?php render_input(["type" => "text", "id" => "username", "name" => "username", "label" => "Username", "rules" => ["required" => true, "maxlength" => 30]]); ?>
+        <?php render_input(["type" => "password", "id" => "password", "name" => "password", "label" => "Password", "rules" => ["required" => true, "minlength" => 8]]); ?>
+        <?php render_input(["type" => "password", "id" => "confirm", "name" => "confirm", "label" => "Confirm Password", "rules" => ["required" => true, "minlength" => 8]]); ?>
+        <?php render_button(["text" => "Register", "type" => "submit"]); ?>
+    </form>
 </div>
 <script>
     function validate(form) {
@@ -41,32 +41,9 @@ reset_session();
             flash("[client] Passwords must match");
             return false;
         }
-        let email = form.email.value;
-        let username = form.username.value;
-        let password = form.password.value;
-        let confirm = form.confirm.value;
 
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailPattern.test(email)) {
-            flash(" [client] Please enter a valid email address");
-            return false;
-        }
 
-        const usernamePattern = /^[a-zA-Z0-9_-]{3,15}$/;
-        if (!usernamePattern.test(username)) {
-            flash("[client] Username must only contain 3-15 characters a-z, 0-9, _, or -");
-            return false;
-        }
-
-        if (password.length < 8) {
-            flash("[client] Password must be at least 8 characters long");
-            return false;
-        }
-
-        if (password !== confirm) {
-            flash("[client] Passwords must match");
-            return false;
-        }
+        
 
         return true;
     }
@@ -121,7 +98,6 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         try {
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
             flash("Successfully registered!", "success");
-        } catch (PDOException $e) {
         } catch (PDOException $e) {
             users_check_duplicate($e->errorInfo);
         }

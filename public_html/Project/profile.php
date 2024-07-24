@@ -40,7 +40,7 @@ if (isset($_POST["save"])) {
             } else {
                 flash("User doesn't exist", "danger");
             }
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             flash("An unexpected error occurred, please try again", "danger");
             //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
         }
@@ -106,8 +106,6 @@ $username = get_username();
         <?php render_button(["text" => "Update Profile", "type" => "submit"]); ?>
     </form>
 </div>
-
-
 
 <script>
     function validate(form) {

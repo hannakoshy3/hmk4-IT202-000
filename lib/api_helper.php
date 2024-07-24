@@ -47,7 +47,7 @@ function _sendRequest($url, $key, $data = [], $method = 'GET', $isRapidAPI = tru
     ];
 
     if ($method == "GET") {
-        $options[CURLOPT_URL] = "https://zillow56.p.rapidapi.com/similar_rent_properties?zpid=48860090" . http_build_query($data); //key1=v1&key2=v2
+        $options[CURLOPT_URL] = "$url?" . http_build_query($data); //key1=v1&key2=v2
     } else {
         $options[CURLOPT_URL] = $url;
         $options[CURLOPT_POST] = true;
