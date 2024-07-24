@@ -6,8 +6,7 @@ if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "/home.php"));
 }
-//attempt to apply 
-//hmk4
+//attempt to apply
 if (isset($_POST["users"]) && isset($_POST["roles"])) {
     $user_ids = $_POST["users"]; //se() doesn't like arrays so we'll just do this
     $role_ids = $_POST["roles"]; //se() doesn't like arrays so we'll just do this

@@ -24,84 +24,83 @@ if (isset($_GET["symbol"])) {
         "10. change percent": "-0.7372%"
     }
 }'];*/
-    error_log("Response: " . var_export($result, true));
-    if (se($result, "status", 400, false) == 200 && isset($result["response"])) {
-        $result = json_decode($result["response"], true);
-    } else {
-        $result = [];
-    }
-    if (isset($result["Global Quote"])) {
-        $quote = $result["Global Quote"];
-        $quote = array_reduce(
-            array_keys($quote),
-            function ($temp, $key) use ($quote) {
-                $k = explode(" ", $key)[1];
-                if ($k === "change") {
-                    $k = "per_change";
-                }
-                $temp[$k] = str_replace('%', '', $quote[$key]);
-                return $temp;
+error_log("Response: " . var_export($result, true));
+if (se($result, "status", 400, false) == 200 && isset($result["response"])) {
+    $result = json_decode($result["response"], true);
+} else {
+    $result = [];
+}
+if (isset($result["Global Quote"])) {
+    $quote = $result["Global Quote"];
+    $quote = array_reduce(
+        array_keys($quote),
+        function ($temp, $key) use ($quote) {
+            $k = explode(" ", $key)[1];
+            if ($k === "change") {
+                $k = "per_change";
             }
-        );
-        $result = [$quote];
-        $db = getDB();
-        $query = "INSERT INTO `IT202-S24-Stocks` ";
-        $columns = [];
-        $params = [];
-        //per record
-        foreach ($quote as $k => $v) {
-            array_push($columns, "`$k`");
-            $params[":$k"] = $v;
+            $temp[$k] = str_replace('%', '', $quote[$key]);
+            return $temp;
         }
-        $query .= "(" . join(",", $columns) . ")";
-        $query .= "VALUES (" . join(",", array_keys($params)) . ")";
-        var_export($query);
-        try {
-            $stmt = $db->prepare($query);
-            $stmt->execute($params);
-            flash("Inserted record", "success");
-        } catch (PDOException $e) {
-            error_log("Something broke with the query" . var_export($e, true));
-            flash("An error occurred", "danger");
-        }
+    );
+    $result = [$quote];
+    $db = getDB();
+    $query = "INSERT INTO `IT202-S24-Realty` ";
+    $columns = [];
+    $params = [];
+    //per record
+    foreach ($quote as $k => $v) {
+        array_push($columns, "`$k`");
+        $params[":$k"] = $v;
     }
-
+    $query .= "(" . join(",", $columns) . ")";
+    $query .= "VALUES (" . join(",", array_keys($params)) . ")";
+    var_export($query);
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->execute($params);
+        flash("Inserted record", "success");
+    } catch (PDOException $e) {
+        error_log("Something broke with the query" . var_export($e, true));
+        flash("An error occurred", "danger");
+    }
+}
 }
 ?>
 <div class="container-fluid">
-    <h1>Realty Info</h1>
-    <p>Remember, we typically won't be frequently calling live data from our API, this is merely a quick sample. We'll want to cache data in our DB to save on API quota.</p>
-    <form>
-        <div>
-            <label>Symbol</label>
-            <input name="symbol" />
-            <input type="submit" value="Fetch Property" />
-        </div>
-    </form>
-    <div class="row ">
-        <?php if (isset($result)) : ?>
-            <?php foreach ($result as $stock) : ?>
-                <pre>
-            <?php var_export($stock);
-            ?>
-            </pre>
-                <table style="display: none">
-                    <thead>
-                        <?php foreach ($stock as $k => $v) : ?>
-                            <td><?php se($k); ?></td>
-                        <?php endforeach; ?>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <?php foreach ($stock as $k => $v) : ?>
-                                <td><?php se($v); ?></td>
-                            <?php endforeach; ?>
-                        </tr>
-                    </tbody>
-                </table>
-            <?php endforeach; ?>
-        <?php endif; ?>
+<h1>Realty Info</h1>
+<p>Remember, we typically won't be frequently calling live data from our API, this is merely a quick sample. We'll want to cache data in our DB to save on API quota.</p>
+<form>
+    <div>
+        <label>Symbol</label>
+        <input name="symbol" />
+        <input type="submit" value="Fetch Realty" />
     </div>
+</form>
+<div class="row ">
+    <?php if (isset($result)) : ?>
+        <?php foreach ($result as $property) : ?>
+            <pre>
+        <?php var_export($property);
+        ?>
+        </pre>
+            <table style="display: none">
+                <thead>
+                    <?php foreach ($property as $k => $v) : ?>
+                        <td><?php se($k); ?></td>
+                    <?php endforeach; ?>
+                </thead>
+                <tbody>
+                    <tr>
+                        <?php foreach ($property as $k => $v) : ?>
+                            <td><?php se($v); ?></td>
+                        <?php endforeach; ?>
+                    </tr>
+                </tbody>
+            </table>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
 </div>
 <?php
 require(__DIR__ . "/../../partials/flash.php");
