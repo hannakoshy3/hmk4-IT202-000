@@ -1,4 +1,3 @@
-
 <?php
 
 function sanitize_email($email = "")

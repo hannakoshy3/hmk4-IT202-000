@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once(__DIR__ . "/../lib/functions.php");
 //Note: this is to resolve cookie issues with port numbers
 $domain = $_SERVER["HTTP_HOST"];
@@ -20,30 +21,81 @@ if (($localWorks && $domain == "localhost") || $domain != "localhost") {
         "samesite" => "lax"
     ]);
 }
-session_start();
+
 
 
 ?>
+<!-- boostrap inclusion 5.3 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link href="<?php echo get_url('Project/styles.css'); ?>" rel="stylesheet">
 <!-- include css and js files -->
-<link rel="stylesheet" href="<?php echo get_url('styles.css'); ?>">
 <script src="<?php echo get_url('helpers.js'); ?>"></script>
-<nav>
-    <ul>
-        <?php if (is_logged_in()) : ?>
-            <li><a href="<?php echo get_url('home.php'); ?>">Home</a></li>
-            <li><a href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
-        <?php endif; ?>
-        <?php if (!is_logged_in()) : ?>
-            <li><a href="<?php echo get_url('login.php'); ?>">Login</a></li>
-            <li><a href="<?php echo get_url('register.php'); ?>">Register</a></li>
-        <?php endif; ?>
-        <?php if (has_role("Admin")) : ?>
-            <li><a href="<?php echo get_url('admin/create_role.php'); ?>">Create Role</a></li>
-            <li><a href="<?php echo get_url('admin/list_roles.php'); ?>">List Roles</a></li>
-            <li><a href="<?php echo get_url('admin/assign_roles.php'); ?>">Assign Roles</a></li>
-        <?php endif; ?>
-        <?php if (is_logged_in()) : ?>
-            <li><a href="<?php echo get_url('logout.php'); ?>">Logout</a></li>
-        <?php endif; ?>
-    </ul>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Image Overlay</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+</html>
+
+
+
+<nav class="navbar navbar-expand-lg bg-primary p-2 text-dark bg-opacity-25">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style= "color: #000000;" >Shop Realty</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <?php if (is_logged_in()) : ?>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('home.php'); ?>" style="color: #000000;">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('profile.php'); ?>" style="color: #000000;">Profile</a></li>
+                <?php endif; ?>
+                <?php if (!is_logged_in()) : ?>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>" style="color: #000000;">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('register.php'); ?>" style="color: #000000;">Register</a></li>
+                <?php endif; ?>
+                <?php if (has_role("Admin")) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #000000;">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/create_role.php'); ?>" style="color: #000000;">Create Role</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/list_roles.php'); ?>" style="color: #000000;">List Roles</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/assign_roles.php'); ?>" style="color: #000000;">Assign Roles</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                <?php if (has_role("Admin")) : ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #000000;">
+                            Realty Management
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/create_realty.php'); ?>" style="color: #000000;">Create Realty</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('admin/list_realty.php'); ?>" style="color: #000000;">List Realty</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                
+                <?php if (has_role("Client")): ?>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('clients/list_realty.php'); ?>" style="color: #000000;">Client Properties</a></li>
+                <?php endif; ?>
+
+                <?php if (is_logged_in()) : ?>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('logout.php'); ?>" style="color: #000000;">Logout</a></li>
+                <?php endif; ?>
+                
+
+            </ul>
+        </div>
+    </div>
 </nav>

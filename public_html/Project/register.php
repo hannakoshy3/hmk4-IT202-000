@@ -2,26 +2,25 @@
 require(__DIR__ . "/../../partials/nav.php");
 reset_session();
 ?>
-<h1>Register</h1>
-<form onsubmit="return validate(this)" method="POST">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" required />
+
+<body class="bg_img home">
+    <div class="register-container">
+        <div class="overlay banner register-banner">
+            <div class="container-fluid">
+                <h2>Register</h2>
+                <form onsubmit="return validate(this)" method="POST">
+                    <?php render_input(["type" => "email", "id" => "email", "name" => "email", "label" => "Email", "rules" => ["required" => true]]); ?>
+                    <?php render_input(["type" => "text", "id" => "username", "name" => "username", "label" => "Username", "rules" => ["required" => true, "maxlength" => 30]]); ?>
+                    <?php render_input(["type" => "password", "id" => "password", "name" => "password", "label" => "Password", "rules" => ["required" => true, "minlength" => 8]]); ?>
+                    <?php render_input(["type" => "password", "id" => "confirm", "name" => "confirm", "label" => "Confirm Password", "rules" => ["required" => true, "minlength" => 8]]); ?>
+                    <?php render_button(["text" => "Register", "type" => "submit"]); ?>
+                </form>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" required maxlength="30" />
-    </div>
-    <div>
-        <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
-    </div>
-    <div>
-        <label for="confirm">Confirm</label>
-        <input type="password" name="confirm" required minlength="8" />
-    </div>
-    <input type="submit" value="Register" />
-</form>
+</body>
+
+
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation
@@ -52,6 +51,9 @@ reset_session();
             flash("[client] Passwords must match");
             return false;
         }
+
+
+
 
         return true;
     }
@@ -99,15 +101,30 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
         $hasError = true;
     }
     if (!$hasError) {
-        //TODO 4
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
         try {
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
             flash("Successfully registered!", "success");
-        } catch (PDOException $e) {
-            users_check_duplicate($e->errorInfo);
+
+
+            $user_id = $db->lastInsertId();
+
+
+            $role_stmt = $db->prepare("SELECT id FROM Roles WHERE name = 'client'");
+            $role_stmt->execute();
+            $role = $role_stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($role) {
+                $role_id = $role['id'];
+
+
+                $user_role_stmt = $db->prepare("INSERT INTO UserRoles (user_id, role_id, is_active, created, modified) VALUES (:user_id, :role_id, 1, NOW(), NOW())");
+                $user_role_stmt->execute([":user_id" => $user_id, ":role_id" => $role_id]);
+            }
+        } catch (Exception $e) {
+            print_r($e);
         }
     }
 }
