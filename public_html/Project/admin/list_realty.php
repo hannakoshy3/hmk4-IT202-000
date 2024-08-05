@@ -66,7 +66,8 @@ require_once(__DIR__ . "/../../../lib/flash_messages.php");
 
                 <?php
                 // Fetch clients from the database
-                $clients = get_all_clients(); // You'll need to implement this function
+                //View Data Details Page
+                $clients = get_all_clients(); 
                 foreach ($clients ?? []  as $client) {
                     $selected = $client["id"] == $client_id ? "selected" : "";
                     echo '<option value="' . htmlspecialchars($client["id"]) . '" ' . $selected . '>' . htmlspecialchars($client["username"]) . '</option>';
