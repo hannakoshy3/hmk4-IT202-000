@@ -1,23 +1,94 @@
-
-
-nav li {
-    display: inline;
-    background-color: rebeccapurple;
+.bg_img {
+    background-image: url('/Project/images/broook.jpg'); /* replace with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* adjust height as needed */
+    width: 100vw; /* adjust width as needed */
+    position: fixed; /* or absolute, depending on your layout */
+    top: 0;
+    left: 0;
+    z-index: -1; /* ensure it's behind other elements */
 }
 
-nav li a {
-    color: rgb(173, 124, 149);
+
+/* Add this to your other elements (login, register, profile, etc.) */
+.login, .register, .profile .home {
+    position: relative; /* or absolute, depending on your layout */
+    z-index: 1; /* ensure they're above the background image */
+    font-family: 'Montserrat', sans-serif;
+    color: #fafafa; /* a blue color */
 }
 
-input {
-    border-radius: 10%;
+/* Existing .overlay class */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.079);
+    z-index: 1;
 }
 
-body {
-    background-color: rgb(180, 162, 171);
-    color: rgb(98, 96, 163);
+/* Existing .banner class */
+.banner {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
 }
 
-.nav-link {
-    color: azure !important;
+/* New styles for .overlay.banner */
+.overlay.banner {
+    position: relative; /* Change to relative if needed */
+    top: 100px;
+    background-color: rgba(255, 248, 248, 0.598); /* Adjust background color */
+    height: 40vh; /* Adjust height */
+    display: flex; /* Add display flex for centering content */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
+
+.bg-light {
+    opacity: 0.7; /* adjust the value between 0 and 1 */
+}
+
+.login-container {
+    width: 50%; /* take up 50% of the parent container's width */
+    padding: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.register-container {
+    width: 50%; /* take up 50% of the parent container's width */
+    padding: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.profile-container {
+    width: 50%; /* take up 50% of the parent container's width */
+    padding: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.overlay.banner.register-banner {
+    height: 65vh;
+}
+
+.overlay.banner.profile-banner {
+    height: 80vh;
 }

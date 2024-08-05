@@ -1,2 +1,26 @@
-ALTER TABLE `IT202-S24-Realty`
+ALTER TABLE `IT202_S24_Realty`
 ADD COLUMN is_api tinyint(1) not null default 0;
+
+ALTER TABLE `IT202_S24_Realty`
+    MODIFY `zipcode` VARCHAR(10) NULL,
+    MODIFY `city` VARCHAR(50) NULL,
+    MODIFY `country` VARCHAR(50) NULL,
+    MODIFY `state` VARCHAR(50) NULL,
+    MODIFY `streetAddress` VARCHAR(100) NULL,
+    MODIFY `location` VARCHAR(100) NULL,
+    MODIFY `homeStatus` VARCHAR(100) NULL,
+    MODIFY `homeType` VARCHAR(100) NULL,
+    MODIFY `price` VARCHAR(100) NULL,
+    MODIFY `lotAreaValue` VARCHAR(100) NULL,
+    MODIFY `bathrooms` INT NULL,
+    MODIFY `bedrooms` INT NULL,
+    MODIFY `created` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    MODIFY `modified` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+
+ALTER TABLE `IT202_S24_Realty`
+ADD COLUMN `assigned_user_id` INT NULL;
+ALTER TABLE `IT202_S24_Realty`
+ADD CONSTRAINT `fk_assigned_user`
+FOREIGN KEY (`assigned_user_id`) REFERENCES `Users`(`id`)
+ON DELETE SET NULL;

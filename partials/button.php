@@ -13,6 +13,7 @@
     <?php elseif ($_btn_type === "reset") : ?>
         <input type="reset" class="btn btn-<?php se($_btn_color); ?>" value="<?php se($_btn_text); ?>" />
     <?php endif; ?>
+
     <?php
     //cleanup just in case this is used directly instead of via render_button()
     // if it's used from the function, the variables will be out of scope when the function is done so there'd be no need to unset them

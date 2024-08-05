@@ -78,7 +78,6 @@ if ($property) {
         ["type" => "number", "name" => "price", "placeholder" => "Realty Current Price", "label" => "Realty Current Price", "rules" => ["required" => "required"]],
         ["type" => "number", "name" => "previous", "placeholder" => "Realty Previous", "label" => "Realty Previous", "rules" => ["required" => "required"]],
         ["type" => "number", "name" => "per_change", "placeholder" => "Realty % change", "label" => "Realty % change", "rules" => ["required" => "required"]],
-        ["type" => "number", "name" => "per_change", "placeholder" => "Realty % change", "label" => "Realty % change", "rules" => ["required" => "required"]],
         ["type" => "number", "name" => "volume", "placeholder" => "Realty Volume", "label" => "Realty Volume", "rules" => ["required" => "required"]],
         ["type" => "date", "name" => "latest", "placeholder" => "Realty Date", "label" => "Realty Date", "rules" => ["required" => "required"]],
 
@@ -95,6 +94,9 @@ if ($property) {
 ?>
 <div class="container-fluid">
     <h3>Edit Property</h3>
+    <div>
+        <a href="<?php echo get_url("admin/list_realty.php"); ?>" class="btn btn-secondary">Back</a>
+    </div>
     <form method="POST">
         <?php foreach ($form as $k => $v) {
 

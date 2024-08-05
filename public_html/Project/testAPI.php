@@ -2,13 +2,13 @@
 require(__DIR__ . "/../../partials/nav.php");
 
 $result = [];
-if (isset($_GET["symbol"])) {
+if (isset($_GET["results"])) {
     //function=GLOBAL_QUOTE&symbol=MSFT&datatype=json
-    $data = ["function" => "GLOBAL_QUOTE", "symbol" => $_GET["symbol"], "datatype" => "json"];
-    $endpoint = "https://zillow56.p.rapidapi.com/similar_rent_properties?zpid=48860090";
+    $data = ["location" => $_GET["results"], "output" => "json"];
+    $endpoint = "https://zillow56.p.rapidapi.com/search";
     $isRapidAPI = true;
-    $rapidAPIHost = "zillow56.p.rapidapi.com";
-    $result = get($endpoint, "REALTY_API_KEY", $data, $isRapidAPI, $rapidAPIHost);
+    $rapidAPIHost = "realty-in-us.p.rapidapi.com";
+    $result = get($endpoint, "REALTY_API", $data, $isRapidAPI, $rapidAPIHost);
     //example of cached data to save the quotas
     /* $result = ["status" => 200, "response" => '{
     "Global Quote": {
@@ -30,8 +30,8 @@ if (se($result, "status", 400, false) == 200 && isset($result["response"])) {
 } else {
     $result = [];
 }
-if (isset($result["Global Quote"])) {
-    $quote = $result["Global Quote"];
+if (isset($result["results"])) {
+    $quote = $result["results"];
     $quote = array_reduce(
         array_keys($quote),
         function ($temp, $key) use ($quote) {
@@ -45,7 +45,7 @@ if (isset($result["Global Quote"])) {
     );
     $result = [$quote];
     $db = getDB();
-    $query = "INSERT INTO `IT202-S24-Realty` ";
+    $query = "INSERT INTO `IT202-S24-Stocks` ";
     $columns = [];
     $params = [];
     //per record
@@ -68,31 +68,31 @@ if (isset($result["Global Quote"])) {
 }
 ?>
 <div class="container-fluid">
-<h1>Realty Info</h1>
+<h1>Stock Info</h1>
 <p>Remember, we typically won't be frequently calling live data from our API, this is merely a quick sample. We'll want to cache data in our DB to save on API quota.</p>
 <form>
     <div>
         <label>Symbol</label>
         <input name="symbol" />
-        <input type="submit" value="Fetch Realty" />
+        <input type="submit" value="Fetch Stock" />
     </div>
 </form>
 <div class="row ">
     <?php if (isset($result)) : ?>
-        <?php foreach ($result as $property) : ?>
+        <?php foreach ($result as $stock) : ?>
             <pre>
-        <?php var_export($property);
+        <?php var_export($stock);
         ?>
         </pre>
             <table style="display: none">
                 <thead>
-                    <?php foreach ($property as $k => $v) : ?>
+                    <?php foreach ($stock as $k => $v) : ?>
                         <td><?php se($k); ?></td>
                     <?php endforeach; ?>
                 </thead>
                 <tbody>
                     <tr>
-                        <?php foreach ($property as $k => $v) : ?>
+                        <?php foreach ($stock as $k => $v) : ?>
                             <td><?php se($v); ?></td>
                         <?php endforeach; ?>
                     </tr>

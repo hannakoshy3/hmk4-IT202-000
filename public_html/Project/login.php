@@ -1,13 +1,27 @@
 <?php
+ob_start();
 require_once(__DIR__ . "/../../partials/nav.php");
+//require_once(__DIR__ . "/../../partials/flash.php");
 ?>
-<div class="container-fluid">
-    <form onsubmit="return validate(this)" method="POST">
-        <?php render_input(["type" => "text", "id" => "email", "name" => "email", "label" => "Email/Username", "rules" => ["required" => true]]); ?>
-        <?php render_input(["type" => "password", "id" => "password", "name" => "password", "label" => "Password", "rules" => ["required" => true, "minlength" => 8]]); ?>
-        <?php render_button(["text" => "Login", "type" => "submit"]); ?>
-    </form>
-</div>
+
+<body class="bg_img home">
+    <div class="login-container">
+        <div class="overlay banner">
+            <div class="container-fluid">
+                <h2>Login</h2>
+                <form onsubmit="return validate(this)" method="POST">
+                    <?php render_input(["type" => "text", "id" => "email", "name" => "email", "label" => "Email/Username", "rules" => ["required" => true]]); ?>
+                    <?php render_input(["type" => "password", "id" => "password", "name" => "password", "label" => "Password", "rules" => ["required" => true, "minlength" => 8]]); ?>
+                    <?php render_button(["text" => "Login", "type" => "submit"]); ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation
@@ -20,7 +34,7 @@ require_once(__DIR__ . "/../../partials/nav.php");
             return false;
         }
 
-        
+
 
         //TODO update clientside validation to check if it should
         //valid email or username
@@ -104,5 +118,4 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         }
     }
 }
-?>
-<?php require_once(__DIR__ . "/../../partials/flash.php");
+ob_end_flush();
