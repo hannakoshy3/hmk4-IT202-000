@@ -43,10 +43,10 @@ function _sendRequest($url, $key, $data = [], $method = 'GET', $isRapidAPI = tru
         CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => $headers
+        CURLOPT_HTTPHEADER => $headers,
     ];
 
-    if ($method == "GET") {
+    if ($method == 'GET') {
         $options[CURLOPT_URL] = "$url?" . http_build_query($data); //key1=v1&key2=v2
     } else {
         $options[CURLOPT_URL] = $url;

@@ -1,4 +1,3 @@
-
 <?php
 
 function sanitize_email($email = "")
@@ -17,4 +16,3 @@ function is_valid_password($password)
 {
     return strlen($password) >= 8;
 }
-//hmk4

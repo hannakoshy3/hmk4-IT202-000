@@ -2,6 +2,9 @@
 require_once(__DIR__ . "/../../partials/nav.php");
 is_logged_in(true);
 ?>
+
+
+
 <?php
 if (isset($_POST["save"])) {
     $email = se($_POST, "email", null, false);
@@ -93,19 +96,28 @@ if (isset($_POST["save"])) {
 $email = get_user_email();
 $username = get_username();
 ?>
-<div class="container-fluid">
-    <form method="POST" onsubmit="return validate(this);">
-        <?php render_input(["type" => "email", "id" => "email", "name" => "email", "label" => "Email", "value" => $email, "rules" => ["required" => true]]); ?>
-        <?php render_input(["type" => "text", "id" => "username", "name" => "username", "label" => "Username", "value" => $username, "rules" => ["required" => true, "maxlength" => 30]]); ?>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div class="lead">Password Reset</div>
-        <?php render_input(["type" => "password", "id" => "cp", "name" => "currentPassword", "label" => "Current Password", "rules" => ["minlength" => 8]]); ?>
-        <?php render_input(["type" => "password", "id" => "np", "name" => "newPassword", "label" => "New Password", "rules" => ["minlength" => 8]]); ?>
-        <?php render_input(["type" => "password", "id" => "conp", "name" => "confirmPassword", "label" => "Confirm Password", "rules" => ["minlength" => 8]]); ?>
-        <?php render_input(["type" => "hidden", "name" => "save"]);/*lazy value to check if form submitted, not ideal*/ ?>
-        <?php render_button(["text" => "Update Profile", "type" => "submit"]); ?>
-    </form>
-</div>
+
+<body class="bg_img home">
+    <div class="profile-container">
+        <div class="overlay banner profile-banner">
+            <div class="container-fluid">
+                <h2>Profile</h2>
+                <form method="POST" onsubmit="return validate(this);">
+                    <?php render_input(["type" => "email", "id" => "email", "name" => "email", "label" => "Email", "value" => $email, "rules" => ["required" => true]]); ?>
+                    <?php render_input(["type" => "text", "id" => "username", "name" => "username", "label" => "Username", "value" => $username, "rules" => ["required" => true, "maxlength" => 30]]); ?>
+                    <!-- DO NOT PRELOAD PASSWORD -->
+                    <div class="lead">Password Reset</div>
+                    <?php render_input(["type" => "password", "id" => "cp", "name" => "currentPassword", "label" => "Current Password", "rules" => ["minlength" => 8]]); ?>
+                    <?php render_input(["type" => "password", "id" => "np", "name" => "newPassword", "label" => "New Password", "rules" => ["minlength" => 8]]); ?>
+                    <?php render_input(["type" => "password", "id" => "conp", "name" => "confirmPassword", "label" => "Confirm Password", "rules" => ["minlength" => 8]]); ?>
+                    <?php render_input(["type" => "hidden", "name" => "save"]);/*lazy value to check if form submitted, not ideal*/ ?>
+                    <?php render_button(["text" => "Update Profile", "type" => "submit"]); ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
 
 <script>
     function validate(form) {

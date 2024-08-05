@@ -1,6 +1,6 @@
 <?php
 // string array containing env keys to lookup (this allows usage of multiple APIs)
-$env_keys = ["ZILLOW_API"];
+$env_keys = ["REALTY_API"];
 $ini = @parse_ini_file(".env");
 
 $API_KEYS = [];
