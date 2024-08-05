@@ -4,16 +4,16 @@
     background-position: center;
     height: 100vh; /* adjust height as needed */
     width: 100vw; /* adjust width as needed */
-    position: fixed; /* or absolute, depending on your layout */
+    position: fixed; 
     top: 0;
     left: 0;
     z-index: -1; /* ensure it's behind other elements */
 }
 
 
-/* Add this to your other elements (login, register, profile, etc.) */
+/* hmk4 (login, register, profile, etc.) */
 .login, .register, .profile .home {
-    position: relative; /* or absolute, depending on your layout */
+    position: relative; 
     z-index: 1; /* ensure they're above the background image */
     font-family: 'Montserrat', sans-serif;
     color: #fafafa; /* a blue color */

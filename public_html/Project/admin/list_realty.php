@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../../../partials/flash.php");
 if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "/home.php"));
-}
+}//hmk4   listings page
 
 function deleteRealtyListing($listingId)
 {
@@ -65,7 +65,7 @@ require_once(__DIR__ . "/../../../lib/flash_messages.php");
                 <option value="">Select Client</option>
 
                 <?php
-                // Fetch clients from the database
+                // Fetch clients from the database       hmk4
                 //View Data Details Page
                 $clients = get_all_clients(); 
                 foreach ($clients ?? []  as $client) {

@@ -8,7 +8,7 @@ if (!has_role("Admin")) {
     flash("You don't have permission to view this page", "warning");
     die(header("Location: $BASE_PATH" . "/home.php"));
 }
-
+//hmk4
 if (isset($_POST["action"])) {
     $action = $_POST["action"];
     $location = se($_POST, "location", "", false);
@@ -50,7 +50,7 @@ if (isset($_POST["action"])) {
 }
 ?>
 
-<!--Each list item should show a summary of the data you want to show in this view-->
+<!-- hmk4 Each list item should show a summary of the data you want to show in this view-->
 <div class="container-fluid">
     <h3>Fetch Realty Listings</h3>
     <ul class="nav nav-tabs">
@@ -125,7 +125,7 @@ if (isset($_POST["action"])) {
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
-                                <!--Design/Style is your choice but must be applied, no plaintext dump to the screen-->
+                                <!--hmk4 Design/Style is your choice but must be applied, no plaintext dump to the screen-->
                                 <h5 class="card-title">
                                     <?= htmlspecialchars($listing["streetAddress"] ?? "N/A") ?>
                                 </h5>
@@ -166,6 +166,7 @@ if (isset($_POST["action"])) {
         </div>
     </div>
 </form>
+
 
 <script>
     function switchTab(tab) {
