@@ -50,8 +50,9 @@ if (isset($_POST["action"])) {
 }
 ?>
 
+<!--Each list item should show a summary of the data you want to show in this view-->
 <div class="container-fluid">
-    <h3>Create or Fetch Realty Listings</h3>
+    <h3>Fetch Realty Listings</h3>
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link bg-success" href="#" onclick="switchTab('create')">Fetch</a>
@@ -118,12 +119,13 @@ if (isset($_POST["action"])) {
 <br>
 <br>
         <div class="row">
-
+            
             <?php if (isset($processed_listing)) { ?>
                 <?php foreach ($processed_listing as $listing) : ?>
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body">
+                                <!--Design/Style is your choice but must be applied, no plaintext dump to the screen-->
                                 <h5 class="card-title">
                                     <?= htmlspecialchars($listing["streetAddress"] ?? "N/A") ?>
                                 </h5>
