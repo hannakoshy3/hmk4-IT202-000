@@ -1,73 +1,65 @@
 <?php
+ob_start();
 require(__DIR__ . "/../../../partials/nav.php");
-require_once(__DIR__ . "/../../../lib/dbzillow_helper.php");
 require_once(__DIR__ . "/../../../partials/flash.php");
 
-$clientId = $_SESSION['user']['id'];
-
-
-if (!has_role("Client")) {
-    flash("You don't have permission to view this page", "warning");
-    die(header("Location: $BASE_PATH" . "/home.php"));
+function deleteRealtyListing($listingId)
+{
+    $db = getDB();
+    $query = "DELETE FROM IT202_S24_Realty WHERE id = :listingId";
+    $stmt = $db->prepare($query);
+    return $stmt->execute([':listingId' => $listingId]);
 }
 
-function getClientRealtyListings($clientId, $state, $streetAddress)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_listing_id'])) {
+    $listingId = $_POST['delete_listing_id'];
+    if (deleteRealtyListing($listingId)) {
+        flash("Listing deleted successfully", "success");
+    } else {
+        flash("Failed to delete listing", "danger");
+    }
+    die(header("Location: " . get_url('admin/list_realty.php')));
+}
+
+function getClientRealtyListings($clientId)
 {
     $db = getDB();
     $query = "SELECT * FROM IT202_S24_Realty WHERE assigned_user_id = :clientId";
     $params = [':clientId' => $clientId];
 
-    if (!empty($state) && $state !== NULL) {
-
-        echo $state;
-        $query .= " AND `state` = :state";
-        $params[":state"] = $state;
-    }
-
-    if (!empty($streetAddress)) {
-        $query .= " AND streetAddress LIKE :streetAddress";
-        $params[':streetAddress'] = '%' . $streetAddress . '%';
-    }
-
     $stmt = $db->prepare($query);
     $stmt->execute($params);
-
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$state = $_GET['state'] ?? '';
+$client_id = $_SESSION['user']['id']; // Get logged-in user's ID
+$listings = getClientRealtyListings($client_id);
 
-$streetAddress = $_GET['streetAddress'] ?? '';
-
-$listings = getClientRealtyListings($clientId, $state, $streetAddress);
-
+require_once(__DIR__ . "/../../../lib/flash_messages.php");
 ?>
-<div class="container-fluid">
-    <h3>Fetch Client Listings</h3>
-    <form method="GET">
-        <div class="row">
-            <div class="col-md-4">
-                <?php render_input(["type" => "search", "name" => "streetAddress", "placeholder" => "Street Address"]); ?>
-            </div>
-            <div class="col-md-4">
-                <?php render_input(["type" => "text",  "name" => "state", "placeholder" => "State"]); ?>
-            </div>
 
+<div class="container-fluid">
+    <h3>View Listings</h3>
+    <br>
+    <br>
+    <form method="GET">
+        <div class="col-md-6">
+            <select name="client_id" class="form-control">
+                <option value="<?= htmlspecialchars($client_id) ?>"><?= htmlspecialchars($_SESSION['user']['username']) ?></option>
+            </select>
         </div>
-        <div></div>
-        <?php render_input(["type" => "hidden", "name" => "action", "value" => "fetch"]); ?>
-        <?php render_button(["text" => "Search", "type" => "submit",]); ?>
+        <div class="col-md-4 mt-4">
+            <button type="submit" class="btn btn-primary">Search Listings</button>
+        </div>
     </form>
 </div>
-
 
 <div class="container-fluid">
     <br>
     <br>
     <br>
     <div class="row">
-
-        <?php if (isset($listings)) { ?>
+        <?php if (!empty($listings)) { ?>
             <?php foreach ($listings as $listing) : ?>
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
@@ -89,14 +81,16 @@ $listings = getClientRealtyListings($clientId, $state, $streetAddress);
                                 <strong>Home Status:</strong> <?= htmlspecialchars($listing["homeStatus"] ?? "N/A") ?><br>
                                 <strong>Home Type:</strong> <?= htmlspecialchars($listing["homeType"] ?? "N/A") ?><br>
                             </p>
-
+                            <form method="POST" action="<?php echo get_url('admin/list_realty.php')?>?client_id=<?= htmlspecialchars($client_id) ?>">
+                                <input type="hidden" name="delete_listing_id" value="<?= htmlspecialchars($listing['id']) ?>">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-
             <?php endforeach; ?>
         <?php } ?>
-
-
     </div>
 </div>
+
+<?php ob_end_flush(); ?>
