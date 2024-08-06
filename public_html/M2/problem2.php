@@ -6,11 +6,18 @@ $a4 = [10.01, -12.22, 0.23, 19.20, -5.13, 3.12];
 function getTotal($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     $total = 0.00;
-    //start edits
+    //start edits hmk4
     //note: use the $arr variable, don't directly touch $a1-$a4
     //TODO do adding here
+    foreach ($arr as $value) {
+        $total += $value;
+    }
+    
+    // Round the total to two decimal places
+    $total = round($total, 2);
+
     //TODO do rounding stuff here (round to two decimals i.e., 0.10, 0.01, 0.00)
-    //mt85 6-10-24
+    //hmk4 6-10-24
     echo "summed values...";
     echo "rounded values...";
     //end edits

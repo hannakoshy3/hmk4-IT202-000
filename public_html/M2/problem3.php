@@ -8,10 +8,16 @@ function bePositive($arr) {
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     echo "<br>Positive output:<br>";
     $output = [];
-    //start edits
+    //start edits hmk4
     //note: use the $arr variable, don't directly touch $a1-$a4
     //TODO Take each value of the $arr, convert it to positive, and set it to the same index in the $output array but with the original data type (i.e., if the source was a string the output slot value should be a string)
-    
+    foreach ($arr as $value) {
+        $posValue = abs($value);
+        if (gettype($value) === "string") {
+            $posValue = strval($posValue);
+        }
+        $output[] = $posValue;
+    }
     //end edits
     
     //displays the output along with their types
