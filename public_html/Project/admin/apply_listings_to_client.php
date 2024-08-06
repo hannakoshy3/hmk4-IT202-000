@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     ":lotAreaValue" => $listing["lotAreaValue"] ?? null,
                     ":homeStatus" => $listing["homeStatus"] ?? null,
                     ":homeType" => $listing["homeType"] ?? null,
-                    ":assigned_user_id" => $clientId
+                    ":assigned_user_id" => $clientId //linking properties to the users      hmk4
                 ]);
             }
           
