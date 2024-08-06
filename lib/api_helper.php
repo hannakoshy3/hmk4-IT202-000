@@ -17,7 +17,7 @@ require_once(__DIR__ . "/load_api_keys.php");
 function _sendRequest($url, $key, $data = [], $method = 'GET', $isRapidAPI = true, $rapidAPIHost = "")
 {
     global $API_KEYS;
-    // Check if the API key is set and not empty
+    // Check if the API key is set and not empty hmk4
     if (!isset($API_KEYS) || !isset($API_KEYS[$key]) || empty($API_KEYS[$key])) {
         throw new Exception("Missing or empty API KEY");
     }
