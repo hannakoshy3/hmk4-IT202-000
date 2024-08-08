@@ -8,7 +8,7 @@
         window.addEventListener("load", () => {
             console.log("loaded via javascript");
 
-            // Adding event listeners to navigation links
+            // Adding event listeners to navigation links    hmk4
             document.querySelectorAll('nav a').forEach(link => {
                 link.addEventListener('click', function() {
                     const linkText = this.textContent;
@@ -41,21 +41,18 @@
             position: relative;
             padding-left: 25px;
         }
-
         li::before {
             content: '✓'; /*hmk4*/
             position: absolute;
             left: 0;
             color: green;
         }
-
         nav a {
             display: block;
             padding: 8px;
             text-transform: capitalize;
             background-color: #e1cefe;
         }
-
         nav a:hover {
             background-color: rgb(159, 252, 210);
         }
@@ -78,7 +75,7 @@
         }
 
         h1 {
-            text-transform: capitalize;
+            text-transform: capitalize; /*hmk4*/
         }
     </style>
     <!-- make the necessary edits above this line -->
